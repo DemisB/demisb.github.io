@@ -74,3 +74,10 @@ sudo fdisk /dev/sdx
 # Then, do (copy pasted from the command I used some time ago)
 sudo mkfs.vfat -F32 -I /dev/sdx
 ```
+
+- Create gzipped tar archive excluding node_modules and python venvs
+
+```bash
+tar --exclude=node_modules --exclude=".venv*" -czvf Dev.tgz ./Dev
+```
+
