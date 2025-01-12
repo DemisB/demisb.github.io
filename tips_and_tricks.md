@@ -5,6 +5,10 @@
 
 `ssh-keygen -C "docker-build-read-only" -t rsa -b 4096`
 
+- Create an ed25519 ssh key
+
+`ssh-keygen -C "demis-github" -t ed25519`
+
 - Repeating key MacOS (useful to know for IdeaVim)
 https://stackoverflow.com/questions/39606031/intellij-key-repeating-idea-vim
 
@@ -50,3 +54,23 @@ cf. https://stackoverflow.com/questions/749544/pipe-to-from-the-clipboard-in-a-b
 
 https://stackoverflow.com/questions/33549254/how-to-generate-url-from-boto3-in-amazon-web-services
 https://github.com/boto/boto3/issues/110
+
+- Update local routing table without pinging broadcast IP (deprecated)
+
+```bash
+nmap -sn 192.168.50.0/24
+```
+
+cf. https://superuser.com/questions/339863/why-doesnt-broadcast-ping-work#comment1155146_487014
+
+SSL cert expiration https://www.howtouselinux.com/post/4-ways-to-check-ssl-certificate-expiration-date
+
+- Format external drive (SD card, USB key)
+
+```bash
+sudo fdisk /dev/sdx
+# Follow the instructions.
+# Last time I chose to make a "W95 FAT32" partition type.
+# Then, do (copy pasted from the command I used some time ago)
+sudo mkfs.vfat -F32 -I /dev/sdx
+```
