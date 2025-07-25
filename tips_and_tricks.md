@@ -1,5 +1,6 @@
 # Tips & tricks
 
+## Linux random stuff
 
 - Create ssh key with 4096 something
 
@@ -24,7 +25,7 @@ dpkg -L $package
 ```
 cf https://serverfault.com/questions/96964/list-of-files-installed-from-apt-package
 
-- find delete file with gith
+- find delete file with git
 ```bash
 git log --diff-filter=D --summary
 ```
@@ -79,5 +80,58 @@ sudo mkfs.vfat -F32 -I /dev/sdx
 
 ```bash
 tar --exclude=node_modules --exclude=".venv*" -czvf Dev.tgz ./Dev
+```
+
+## Database stuff
+
+### MariaDB
+
+**Run a command in a local container**
+
+(e.g. to generate a password hash)
+
+```bash
+$ docker run -e MYSQL_ROOT_PASSWORD=mypass -p 3306:3306 -d mariadb:latest
+$ docker exec -it competent_ardinghelli /bin/bash
+
+# MariaDB shell:
+MariaDB [(none)]> SELECT SHA2('mon super password', 256);
+```
+
+### Clickhouse
+
+**Run a command in a local container**
+
+(e.g. to generate a password hash)
+
+```bash
+$ docker run -d --name some-clickhouse-server --ulimit nofile=262144:262144 clickhouse/clickhouse-server
+$ docker exec -it some-clickhouse-server clickhouse-client
+
+# Clickhouse shell:
+fef4225447e1 :) SELECT hex(SHA256('pwd'));
+```
+
+### Redis
+
+```
+# Show the number of dbs
+CONFIG GET databases
+
+# Example output:
+# 1) "databases"
+# 2) "16"
+
+# Show dbs that have keys
+INFO keyspace
+
+# Example output:
+# # Keyspace
+# db3:keys=3,expires=0,avg_ttl=0
+# db11:keys=2,expires=0,avg_ttl=0
+# db15:keys=6,expires=0,avg_ttl=0
+
+# Switch to a db
+SELECT 15
 ```
 
